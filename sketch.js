@@ -6,11 +6,12 @@ function setup() {
   createCanvas(1600,400);
   speed = Math.round(random(55,90));
   weight = Math.round(random(400,1500));
+  wall = createSprite(1500, 200, 60, height);
+  wall.shapeColor = "grey";
   car = createSprite(50, 200, 50, 50);
   car.velocityX = speed;
   car.shapeColor = "white";
-  wall = createSprite(1500, 200, 60, height);
-  wall.shapeColor = "grey";
+  
 
 
   deformation = (0.5*weight*speed*speed)/22500;
@@ -22,7 +23,8 @@ function draw() {
   fill(255);
   text("Speed of the car = "+speed, 500, 25);
   text("Weight of the car = "+weight, 500, 55);
-  if(car.x == 1445){
+  if(wall.x-car.x<=(car.width+wall.width)/2){
+    car.velocityX = 0;
     if(deformation<100){
       car.shapeColor = "green";
       text("Quality of the car = ",500,200);
@@ -47,7 +49,6 @@ function draw() {
     }
   }
   
-
-  car.collide(wall);
+    
   drawSprites();
 }
